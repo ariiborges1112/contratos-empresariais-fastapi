@@ -3,3 +3,14 @@ storage:
   diretorio_backups: "./storage/backups"
   diretorio_logs: "./storage/logs"
   diretorio_metadata: "./storage/metadata"
+
+upload:
+  max_tamanho_arquivo: 10485760 # 10 MB
+  formatos_permitidos: [".pdf", ".docx", ".txt", ".jpg", ".png"]
+
+hash:
+  algoritmo: "sha256"
+
+logging:
+  nivel: "INFO"
+  arquivo: "./storage/logs/app.log"
