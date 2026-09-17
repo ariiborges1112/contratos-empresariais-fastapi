@@ -19,7 +19,6 @@ class PeriodoContrato(BaseModel):
         return self
 
 class ContratoBase(BaseModel):
-    nome_original: str
     descricao: Optional[str] = None
     categoria: str
     contratante: str
@@ -30,7 +29,7 @@ class ContratoArmazenado(ContratoBase):
     id: int
     nome_original: str
     nome_armazenado: str
-    descricao: Optional[str] = None
+    extensao:
     tipo_mime: str
     categoria: str
     contratante: str
