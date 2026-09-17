@@ -8,34 +8,27 @@ class SituacaoContrato(str, Enum):
     VENCIDO = "vencido"
     PROXIMO_VENCIMENTO = "proximo_vencimento" #serve pra representar os contratos prestes a vencer
 
-class PeriodoContrato(BaseModel):
-    inicio: date
-    termino: date
-
-    @model_validator(mode="after")
-    def validar_datas(self):
-        if self.inicio >= self.termino:
-            raise ValueError("A data de início deve ser anterior a data de término")
-        return self
-
 class ContratoBase(BaseModel):
     descricao: Optional[str] = None
     categoria: str
     contratante: str
     contratado: str
-    periodo: PeriodoContrato
+    data_inicio: date
+    data_termino: date
+
+    @model_validator(mode="after")
+    def validar_datas(self):
+        if self.data_inicio >= self.data_termino:
+            raise ValueError("A data de início deve ser anterior a data de término")
+        return self
 
 class ContratoArmazenado(ContratoBase):
     id: int
     nome_original: str
     nome_armazenado: str
-    extensao:
+    extensao: str
     tipo_mime: str
-    categoria: str
-    contratante: str
-    contratado: str
-    sha256: str
     tamanho: int
-    data_inicio: date
-    data_termino: date
     situacao: SituacaoContrato
+    data_upload: datetime
+    sha256: str
