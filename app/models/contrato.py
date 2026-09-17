@@ -1,7 +1,6 @@
 from enum import Enum
 from pydantic import BaseModel, model_validator
 from datetime import datetime, date
-from typing import Optional
 
 class SituacaoContrato(str, Enum):
     VIGENTE = "vigente"
@@ -9,7 +8,7 @@ class SituacaoContrato(str, Enum):
     PROXIMO_VENCIMENTO = "proximo_vencimento" #serve pra representar os contratos prestes a vencer
 
 class ContratoBase(BaseModel):
-    descricao: Optional[str] = None
+    descricao: str | None = None #a descrição pode ser string ou nula
     categoria: str
     contratante: str
     contratado: str
