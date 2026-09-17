@@ -1,0 +1,5 @@
+storage:
+  diretorio_documentos: "./storage/documentos"
+  diretorio_backups: "./storage/backups"
+  diretorio_logs: "./storage/logs"
+  diretorio_metadata: "./storage/metadata"
