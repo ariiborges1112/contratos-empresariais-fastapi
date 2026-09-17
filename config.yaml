@@ -14,3 +14,10 @@ hash:
 logging:
   nivel: "INFO"
   arquivo: "./storage/logs/app.log"
+
+backup:
+  frequencia: "diaria"
+  formato: "zip"
+
+contrato:
+  dias_alerta_vencimento: 30
