@@ -33,9 +33,9 @@ API RESTful desenvolvida em **FastAPI** para armazenamento, gerenciamento, consu
 
 | Integrante | Responsabilidade |
 |---|---|
-| [@ariiborges1112](https://github.com/ariiborges1112) | Núcleo & lógica de negócio — `main.py`, `models/contrato.py`, `storage_service.py`, `export_service.py`, `backup_service.py` |
+| [@ariiborges1112](https://github.com/ariiborges1112) | Núcleo & lógica de negócio — `main.py`, `models/contrato.py`, `storage_service.py`, `export_service.py`, `backup_service.py`, `logger.py` |
 | [@joaopedrojp2512](https://github.com/joaopedrojp2512) | Documentos & Integridade — `routers/documentos.py`, `routers/integridade.py`, `services/hash_service.py`, `config.py` |
-| [@izabelbrito](https://github.com/izabelbrito) | Estatísticas, Exportação, Backup & Funcionalidade específica — `routers/estatisticas.py`, `routers/exportar.py`, `routers/backup.py`, `logger.py` |
+| [@izabelbrito](https://github.com/izabelbrito) | Estatísticas, Exportação, Backup & Funcionalidade específica — `routers/estatisticas.py`, `routers/exportar.py`, `routers/backup.py` |
 
 ---
 
