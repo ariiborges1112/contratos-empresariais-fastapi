@@ -1,52 +1,90 @@
 from pathlib import Path
-from typing import Any, Dict, Type
+from typing import Any, Dict, List, Type
 import yaml
 from pydantic import BaseModel, Field
 from pydantic_settings import (
     BaseSettings,
     PydanticBaseSettingsSource,
-    SettingsConfigDict
+    SettingsConfigDict,
 )
 
 BASE_DIR = Path(__file__).resolve().parent
 YAML_PATH = BASE_DIR / "config.yaml"
 
-class StorageSenttings(BaseModel):
-    diretorio_documentos:str = "./storage/documentos"
-    diretorio_metadata: str = "./storage/metadata"
+
+class StorageSettings(BaseModel):
+    diretorio_documentos: str = "./storage/documentos"
     diretorio_backups: str = "./storage/backups"
-    diretorio_exportados: str = "./storage/exportados"
+    diretorio_logs: str = "./storage/logs"
+    diretorio_metadata: str = "./storage/metadata"
 
 
-class UploadSenttings(BaseModel):
-    tamanho_max: int = 20
+class UploadSettings(BaseModel):
+    max_tamanho_arquivo: int = 10485760  # 10 MB em bytes
+    formatos_permitidos: List[str] = [".pdf", ".docx", ".txt", ".jpg", ".png"]
 
 
-class HashSenttings(BaseModel):
+class HashSettings(BaseModel):
     algoritmo: str = "sha256"
 
-class LoggingSentings(BaseModel):
-    arquivo: str = "./storage/logs/sistema.log"
-    nivel: str = "INFO"
 
-class BackupSenttings(BaseModel):
+class LoggingSettings(BaseModel):
+    nivel: str = "INFO"
+    arquivo: str = "./storage/logs/app.log"
+
+
+class BackupSettings(BaseModel):
+    frequencia: str = "diaria"
     formato: str = "zip"
 
 
-class Senttings(BaseSettings):
-    storage: StorageSenttings = Field(default_factory=StorageSenttings)
-    upload: UploadSenttings = Field(default_factory=UploadSenttings)
-    hash: HashSenttings = Field(default_factory=HashSenttings)
-    logging: LoggingSentings = Field(default_factory=LoggingSentings)
-    backup: BackupSenttings = Field(default_factory=BackupSenttings)
+class ContratoSettings(BaseModel):
+    dias_alerta_vencimento: int = 30
+
+
+
+class YamlConfigSettingsSource(PydanticBaseSettingsSource):
+    def get_field_value(self, field: Any, field_name: str) -> tuple[Any, str, bool]:
+        return None, field_name, False
+
+    def __call__(self) -> Dict[str, Any]:
+        if not YAML_PATH.exists():
+            return {}
+        with open(YAML_PATH, "r", encoding="utf-8") as f:
+            return yaml.safe_load(f) or {}
+
+
+class Settings(BaseSettings):
+    storage: StorageSettings = Field(default_factory=StorageSettings)
+    upload: UploadSettings = Field(default_factory=UploadSettings)
+    hash: HashSettings = Field(default_factory=HashSettings)
+    logging: LoggingSettings = Field(default_factory=LoggingSettings)
+    backup: BackupSettings = Field(default_factory=BackupSettings)
+    contrato: ContratoSettings = Field(default_factory=ContratoSettings)
 
     model_config = SettingsConfigDict(
         env_nested_delimiter="__",
         env_file=".env",
         env_file_encoding="utf-8",
-        extra= "ignore",
+        extra="ignore",
     )
 
+    @classmethod
+    def settings_customise_sources(
+        cls,
+        settings_cls: Type[BaseSettings],
+        init_settings: PydanticBaseSettingsSource,
+        env_settings: PydanticBaseSettingsSource,
+        dotenv_settings: PydanticBaseSettingsSource,
+        file_secret_settings: PydanticBaseSettingsSource,
+    ) -> tuple[PydanticBaseSettingsSource, ...]:
+       
+        return (
+            init_settings,
+            env_settings,
+            dotenv_settings,
+            YamlConfigSettingsSource(settings_cls),
+        )
 
-    
 
+settings = Settings()
