@@ -31,3 +31,22 @@ class LoggingSentings(BaseModel):
 
 class BackupSenttings(BaseModel):
     formato: str = "zip"
+
+
+class Senttings(BaseSettings):
+    storage: StorageSenttings = Field(default_factory=StorageSenttings)
+    upload: UploadSenttings = Field(default_factory=UploadSenttings)
+    hash: HashSenttings = Field(default_factory=HashSenttings)
+    logging: LoggingSentings = Field(default_factory=LoggingSentings)
+    backup: BackupSenttings = Field(default_factory=BackupSenttings)
+
+    model_config = SettingsConfigDict(
+        env_nested_delimiter="__",
+        env_file=".env",
+        env_file_encoding="utf-8",
+        extra= "ignore",
+    )
+
+
+    
+
