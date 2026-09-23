@@ -1,7 +1,7 @@
 import json
 import os
 from app.config import settings
-from app.models.contrato import ContratoArmazenado
+from app.models.contrato import ContratoArmazenado, ContratoUpdate
 
 CAMINHO_JSON = settings.storage.diretorio_metadata + "/documentos.json"
 
@@ -60,14 +60,26 @@ def buscar_documento_via_id(id: int) -> ContratoArmazenado | None:
 
     return None
 
+#F5
+def atualizar_documento(id: int, dados_atualizados: ContratoUpdate) -> ContratoArmazenado | None:
+    contratos = _ler_catalogo()
 
-def atualizar_catalogo():
-    ...
+    for contrato in contratos:
+        if contrato.id == id:
+            novos_dados = dados_atualizados.model_dump(exclude_unset=True)
+
+            for chave, valor in novos_dados.items():
+                setattr(contrato, chave, valor)
+
+            _salvar_catalogo(contratos)
+
+            return contrato
+
+    return None
 
 #F6
 def excluir_documento(id: int):
     contratos = _ler_catalogo()
-
     contrato_alvo = buscar_documento_via_id(id)
 
     if contrato_alvo:
