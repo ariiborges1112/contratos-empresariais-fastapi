@@ -63,6 +63,8 @@ def buscar_documento_via_id(id: int) -> ContratoArmazenado | None:
 
     return None
 
+#F4
+
 #F5
 def atualizar_documento(id: int, dados_atualizados: ContratoUpdate) -> ContratoArmazenado | None:
     contratos = _ler_catalogo()
@@ -83,17 +85,25 @@ def atualizar_documento(id: int, dados_atualizados: ContratoUpdate) -> ContratoA
 #F6
 def excluir_documento(id: int):
     contratos = _ler_catalogo()
-    contrato_alvo = buscar_documento_via_id(id)
 
-    if contrato_alvo:
-        contratos.remove(contrato_alvo)
+    contratos_filtrados = [c for c in contratos if c.id != id]
 
-        _salvar_catalogo(contratos)
+    if len(contratos_filtrados) == len(contratos):
+        return False
 
-        caminho_arquivo = os.path.join(settings.storage.diretorio_documentos, contrato_alvo.nome_armazenado)
+    contrato_alvo = next(c for c in contratos if c.id == id)
+
+    _salvar_catalogo(contratos_filtrados)
+
+    caminho_arquivo = os.path.join(
+        settings.storage.diretorio_documentos, 
+        contrato_alvo.nome_armazenado
+    )
+
+    try:
         if os.path.exists(caminho_arquivo):
             os.remove(caminho_arquivo)
+    except OSError as e:
+        logger.error(f"Não foi possivel remover o arquivo {caminho_arquivo}: {e}")
 
-        return True
-
-    return False
+    return True
