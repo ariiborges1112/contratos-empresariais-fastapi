@@ -50,11 +50,20 @@ def listar_documentos(contratante: str | None = None, situacao: str | None = Non
 
     return contratos
 
-def buscar_documento_por_id():
-    ...
+#F3
+def buscar_documento_via_id(id: int) -> ContratoArmazenado | None:
+    contratos = _ler_catalogo()
+
+    for i in contratos:
+        if i.id == id:
+            return i
+
+    return None
+
 
 def atualizar_catalogo():
     ...
 
+#F6
 def excluir_catalogo():
-    ...
+    
