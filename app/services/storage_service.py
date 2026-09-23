@@ -21,19 +21,15 @@ def _ler_catalogo() -> list[ContratoArmazenado]:
             return contratos_validados
 
 def _salvar_catalogo(documentos: list[ContratoArmazenado]):
-    if not os.path.exists(CAMINHO_JSON):
-        return []
-    else:
-        with open(file=CAMINHO_JSON, mode="w", enconding="utf-8") as documentos:
-            dados_objetos = json.dump(ContratoArmazenado, arquivo, indent=4)
+    with open(file=CAMINHO_JSON, mode="w", encoding="utf-8") as arquivo:
+        dados_para_salvar = []
 
-            for i in dados_objetos:
-                objeto = ContratoArmazenado.model_dump()
+        for i in documentos:
+            dicionario = i.model_dump()
+            dados_para_salvar.append(dicionario)
+
+    json.dump(dados_para_salvar, arquivo, indent=4)
                 
-
-
-    
-
 def listar_catalogo():
     ...
 
