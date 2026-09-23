@@ -19,6 +19,7 @@ class ContratoCreate(BaseModel):
     def validar_datas(self):
         if self.data_inicio >= self.data_termino:
             raise ValueError("A data de início deve ser anterior a data de término")
+        
         return self
 
 class ContratoUpdate(ContratoCreate):
@@ -33,7 +34,7 @@ class ContratoUpdate(ContratoCreate):
     def validar_datas(self):
         if self.data_inicio and self.data_termino:
             return super().validar_datas()
-
+        
         return self
 
 class ContratoArmazenado(ContratoCreate):
