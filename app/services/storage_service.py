@@ -32,7 +32,8 @@ def _salvar_catalogo(documentos: list[ContratoArmazenado]):
         json.dump(dados_para_salvar, arquivo, indent=4)
 
 #F1
-def 
+def salvar_documentos():
+    ...
 
 #F2, F7                
 def listar_documentos(contratante: str | None = None, situacao: str | None = None,
@@ -64,6 +65,8 @@ def buscar_documento_via_id(id: int) -> ContratoArmazenado | None:
     return None
 
 #F4
+def download_documentos():
+    ...
 
 #F5
 def atualizar_documento(id: int, dados_atualizados: ContratoUpdate) -> ContratoArmazenado | None:
@@ -86,6 +89,7 @@ def atualizar_documento(id: int, dados_atualizados: ContratoUpdate) -> ContratoA
 def excluir_documento(id: int):
     contratos = _ler_catalogo()
 
+    #lista filtrada, """removendo""" o documento do id passado como parametro
     contratos_filtrados = [c for c in contratos if c.id != id]
 
     if len(contratos_filtrados) == len(contratos):
