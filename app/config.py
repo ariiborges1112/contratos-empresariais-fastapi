@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Any, Dict, List, Type
+from typing import Any
 import yaml
 from pydantic import BaseModel, Field
 from pydantic_settings import (
@@ -19,7 +19,7 @@ class StorageSettings(BaseModel):
 
 class UploadSettings(BaseModel):
     max_tamanho_arquivo: int = 10485760  # 10 MB em bytes
-    formatos_permitidos: List[str] = [".pdf", ".docx", ".txt", ".jpg", ".png"]
+    formatos_permitidos: list[str] = [".pdf", ".docx", ".txt", ".jpg", ".png"]
 
 class HashSettings(BaseModel):
     algoritmo: str = "sha256"
@@ -39,7 +39,7 @@ class YamlConfigSettingsSource(PydanticBaseSettingsSource):
     def get_field_value(self, field: Any, field_name: str) -> tuple[Any, str, bool]:
         return None, field_name, False
 
-    def __call__(self) -> Dict[str, Any]:
+    def __call__(self) -> dict[str, Any]:
         if not YAML_PATH.exists():
             return {}
         with open(YAML_PATH, "r", encoding="utf-8") as f:
@@ -63,7 +63,7 @@ class Settings(BaseSettings):
     @classmethod
     def settings_customise_sources(
         cls,
-        settings_cls: Type[BaseSettings],
+        settings_cls: type[BaseSettings],
         init_settings: PydanticBaseSettingsSource,
         env_settings: PydanticBaseSettingsSource,
         dotenv_settings: PydanticBaseSettingsSource,
