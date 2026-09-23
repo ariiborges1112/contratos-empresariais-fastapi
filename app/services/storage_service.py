@@ -30,8 +30,9 @@ def _salvar_catalogo(documentos: list[ContratoArmazenado]):
 
     json.dump(dados_para_salvar, arquivo, indent=4)
                 
-def listar_catalogo():
-    ...
+def listar_documentos() -> list[ContratoArmazenado]:
+    contratos = _ler_catalogo()
+    return contratos
 
 def buscar_em_catalogo():
     ...
