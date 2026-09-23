@@ -1,9 +1,10 @@
+from app.config import settings
 import logging
 import os
 
 log_caminho = "storage/logs"
 os.makedirs(log_caminho, exist_ok=True)
-log_file = os.path.join(log_caminho, "sistema.log")
+log_file = settings.logging.arquivo
 
 log_formato = "%(asctime)s %(levelname)s %(message)s"
 
