@@ -65,5 +65,15 @@ def atualizar_catalogo():
     ...
 
 #F6
-def excluir_catalogo():
-    
+def excluir_catalogo(id: int):
+    contratos = _ler_catalogo()
+
+    contrato_alvo = buscar_documento_via_id(id)
+
+    if contrato_alvo:
+        contratos.remove(contrato_alvo)
+
+        _salvar_catalogo(contratos)
+        return True
+    else:
+        return False
