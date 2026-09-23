@@ -65,7 +65,7 @@ def atualizar_catalogo():
     ...
 
 #F6
-def excluir_catalogo(id: int):
+def excluir_documento(id: int):
     contratos = _ler_catalogo()
 
     contrato_alvo = buscar_documento_via_id(id)
@@ -74,6 +74,11 @@ def excluir_catalogo(id: int):
         contratos.remove(contrato_alvo)
 
         _salvar_catalogo(contratos)
+
+        caminho_arquivo = os.path.join(settings.storage.diretorio_documentos, contrato_alvo.nome_armazenado)
+        if os.path.exists(caminho_arquivo):
+            os.remove(caminho_arquivo)
+
         return True
-    else:
-        return False
+
+    return False
