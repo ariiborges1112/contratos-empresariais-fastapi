@@ -37,40 +37,16 @@ def listar_documentos(contratante: str | None = None, situacao: str | None = Non
     contratos = _ler_catalogo()
 
     if contratante:
-        lista_contratantes = []
-
-        for i in contratos:
-            if i.contratante == contratante:
-                lista_contratantes.append(i)
-
-        contratos = lista_contratantes
+        contratos = [i for i in contratos if i.contratante == contratante]
 
     if situacao:
-        lista_situacoes = []
-
-        for i in contratos:
-            if i.situacao == situacao:
-                lista_situacoes.append(i)
-
-        contratos = lista_situacoes
+        contratos = [i for i in contratos if i.situacao == situacao]
 
     if categoria:
-        lista_categorias = []
-
-        for i in contratos:
-            if i.categoria == categoria:
-                lista_categorias.append(i)
-
-        contratos = lista_categorias
+        contratos = [i for i in contratos if i.categoria == categoria]
 
     if extensao:
-        lista_extensoes = []
-
-        for i in contratos:
-            if i.extensao == extensao:
-                lista_extensoes.append(i)
-
-        contratos = lista_extensoes
+        contratos = [i for i in contratos if i.extensao == extensao]
 
     return contratos
 
