@@ -29,7 +29,10 @@ def _salvar_catalogo(documentos: list[ContratoArmazenado]):
             dicionario = i.model_dump()
             dados_para_salvar.append(dicionario)
 
-    json.dump(dados_para_salvar, arquivo, indent=4)
+        json.dump(dados_para_salvar, arquivo, indent=4)
+
+#F1
+def 
 
 #F2, F7                
 def listar_documentos(contratante: str | None = None, situacao: str | None = None,
