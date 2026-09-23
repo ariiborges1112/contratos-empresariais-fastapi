@@ -26,7 +26,7 @@ class HashSettings(BaseModel):
 
 class LoggingSettings(BaseModel):
     nivel: str = "INFO"
-    arquivo: str = "./storage/logs/app.log"
+    arquivo: str = "./storage/logs/sistema.log"
 
 class BackupSettings(BaseModel):
     frequencia: str = "diaria"
