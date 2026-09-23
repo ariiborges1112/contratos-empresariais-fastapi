@@ -13,7 +13,7 @@ def setup_logger():
         datefmt = "%Y-%m-%d %H:%M:%S" #remove milissegundos
     )
 
-    manipulador_arquivo = logging.FileHandler(log_file, encoding="utf=8")
+    manipulador_arquivo = logging.FileHandler(log_file, encoding="utf-8")
     logger = logging.getLogger()
 
     logger.setLevel(logging.INFO)
