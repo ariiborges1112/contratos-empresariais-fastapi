@@ -10,14 +10,18 @@ def _ler_catalogo() -> list[ContratoArmazenado]:
         return []
     else:
         with open(file=CAMINHO_JSON, mode="r", encoding="utf-8") as documentos:
-            json.load(documentos)
+            dados_dicionario = json.load(documentos)
 
-            @mode
+            contratos_validados = []
 
-            return 
-    ...
+            for i in dados_dicionario:
+                objeto = ContratoArmazenado.model_validate(i)
+                contratos_validados.append(objeto)
+
+            return contratos_validados
 
 def _salvar_catalogo(documentos: list[ContratoArmazenado]):
+    
     ...
 
 def listar_catalogo():
