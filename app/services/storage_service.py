@@ -9,6 +9,9 @@ logger = logging.getLogger()
 
 CAMINHO_JSON = settings.storage.diretorio_metadata + "/documentos.json"
 
+os.makedirs(settings.storage.diretorio_metadata, exist_ok=True)
+os.makedirs(settings.storage.diretorio_documentos, exist_ok=True)
+
 def _ler_catalogo() -> list[ContratoArmazenado]:
     if not os.path.exists(CAMINHO_JSON):
         return []
@@ -29,7 +32,7 @@ def _salvar_catalogo(documentos: list[ContratoArmazenado]):
         dados_para_salvar = []
 
         for i in documentos:
-            dicionario = i.model_dump()
+            dicionario = i.model_dump(mode="json")
             dados_para_salvar.append(dicionario)
 
         json.dump(dados_para_salvar, arquivo, indent=4)
@@ -65,7 +68,7 @@ def salvar_documentos(dados: ContratoCreate, nome_arquivo_original: str, conteud
         tamanho = tamanho_arquivo,
         situacao = situacao_calculada,
         data_upload = datetime.now(),
-        sha256 = "pendente", 
+        sha256 = "pendente",  #PRECISA INTEGRAR COM 'HASH_SERVICE.py'
         descricao = dados.descricao,
         categoria = dados.categoria,
         contratante = dados.contratante,
