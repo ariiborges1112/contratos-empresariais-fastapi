@@ -1,7 +1,7 @@
 import json
 import os
 from app.config import settings
-from app.models.contrato import ContratoArmazenado, ContratoUpdate
+from app.models.contrato import ContratoCreate, ContratoArmazenado, ContratoUpdate
 
 CAMINHO_JSON = settings.storage.diretorio_metadata + "/documentos.json"
 
@@ -20,7 +20,6 @@ def _ler_catalogo() -> list[ContratoArmazenado]:
 
             return contratos_validados
 
-#F1
 def _salvar_catalogo(documentos: list[ContratoArmazenado]):
     with open(file=CAMINHO_JSON, mode="w", encoding="utf-8") as arquivo:
         dados_para_salvar = []
@@ -32,8 +31,17 @@ def _salvar_catalogo(documentos: list[ContratoArmazenado]):
         json.dump(dados_para_salvar, arquivo, indent=4)
 
 #F1
-def salvar_documentos():
-    ...
+def salvar_documentos(dados: ContratoCreate, nome_arquivo_original: str, conteudo_arquivo: bytes):
+    contratos = _ler_catalogo()
+
+    if not contratos:
+        novo_id = 1
+    else:
+        novo_id = max([i.id for i in contratos]) + 1
+
+    
+
+    return novo_id
 
 #F2, F7                
 def listar_documentos(contratante: str | None = None, situacao: str | None = None,
