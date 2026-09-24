@@ -19,7 +19,8 @@ class StorageSettings(BaseModel):
 
 class UploadSettings(BaseModel):
     max_tamanho_arquivo: int = 10485760  # 10 MB em bytes
-    formatos_permitidos: list[str] = [".pdf", ".docx", ".txt", ".jpg", ".png"]
+    formatos_permitidos: List[str] = [".pdf", ".docx", ".txt", ".jpg", ".png"]
+
 
 class HashSettings(BaseModel):
     algoritmo: str = "sha256"
