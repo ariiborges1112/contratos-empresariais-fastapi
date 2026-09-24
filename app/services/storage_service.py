@@ -1,6 +1,7 @@
 import json
 import os
 import logging
+from datetime import datetime
 from app.config import settings
 from app.models.contrato import ContratoCreate, ContratoArmazenado, ContratoUpdate
 
@@ -42,9 +43,41 @@ def salvar_documentos(dados: ContratoCreate, nome_arquivo_original: str, conteud
     else:
         novo_id = max([i.id for i in contratos]) + 1
 
+    nome_base, extensao = os.path.splitext(nome_arquivo_original)
+    nome_armazenado = f"{novo_id}_{nome_arquivo_original}"
+    caminho_completo = os.path.join(settings.storage.diretorio_documentos, nome_armazenado)
 
+    with open(caminho_completo, "wb") as arquivo_fisico:
+        arquivo_fisico.write(conteudo_arquivo)
 
-    return novo_id
+    tamanho_arquivo = os.path.getsize(caminho_completo)
+
+    situacao_calculada = "vigente"
+    if dados.data_termino < datetime.now().date():
+        situacao_calculada = "vencido"
+
+    novo_contrato = ContratoArmazenado(
+        id=novo_id,
+        nome_original=nome_arquivo_original,
+        nome_armazenado=nome_armazenado,
+        extensao=extensao,
+        tipo_mime="application/pdf", 
+        tamanho=tamanho_arquivo,
+        situacao=situacao_calculada,
+        data_upload=datetime.now(),
+        sha256="pendente", 
+        descricao=dados.descricao,
+        categoria=dados.categoria,
+        contratante=dados.contratante,
+        contratado=dados.contratado,
+        data_inicio=dados.data_inicio,
+        data_termino=dados.data_termino
+    )
+
+    contratos.append(novo_contrato)
+    _salvar_catalogo(contratos)
+
+    return novo_contrato
 
 #F2, F7                
 def listar_documentos(contratante: str | None = None, situacao: str | None = None,
