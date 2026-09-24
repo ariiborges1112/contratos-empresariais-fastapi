@@ -13,7 +13,7 @@ hash:
 
 logging:
   nivel: "INFO"
-  arquivo: "./storage/logs/app.log"
+  arquivo: "./storage/logs/sistema.log"
 
 backup:
   frequencia: "diaria"

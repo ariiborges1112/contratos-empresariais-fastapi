@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Any, Dict, List, Type
+from typing import Any
 import yaml
 from pydantic import BaseModel, Field
 from pydantic_settings import (
@@ -9,15 +9,13 @@ from pydantic_settings import (
 )
 
 BASE_DIR = Path(__file__).resolve().parent
-YAML_PATH = BASE_DIR / "config.yaml"
-
+YAML_PATH = BASE_DIR.parent / "config.yaml"
 
 class StorageSettings(BaseModel):
     diretorio_documentos: str = "./storage/documentos"
     diretorio_backups: str = "./storage/backups"
     diretorio_logs: str = "./storage/logs"
     diretorio_metadata: str = "./storage/metadata"
-
 
 class UploadSettings(BaseModel):
     max_tamanho_arquivo: int = 10485760  
@@ -27,32 +25,26 @@ class UploadSettings(BaseModel):
 class HashSettings(BaseModel):
     algoritmo: str = "sha256"
 
-
 class LoggingSettings(BaseModel):
     nivel: str = "INFO"
-    arquivo: str = "./storage/logs/app.log"
-
+    arquivo: str = "./storage/logs/sistema.log"
 
 class BackupSettings(BaseModel):
     frequencia: str = "diaria"
     formato: str = "zip"
 
-
 class ContratoSettings(BaseModel):
     dias_alerta_vencimento: int = 30
-
-
 
 class YamlConfigSettingsSource(PydanticBaseSettingsSource):
     def get_field_value(self, field: Any, field_name: str) -> tuple[Any, str, bool]:
         return None, field_name, False
 
-    def __call__(self) -> Dict[str, Any]:
+    def __call__(self) -> dict[str, Any]:
         if not YAML_PATH.exists():
             return {}
         with open(YAML_PATH, "r", encoding="utf-8") as f:
             return yaml.safe_load(f) or {}
-
 
 class Settings(BaseSettings):
     storage: StorageSettings = Field(default_factory=StorageSettings)
@@ -72,7 +64,7 @@ class Settings(BaseSettings):
     @classmethod
     def settings_customise_sources(
         cls,
-        settings_cls: Type[BaseSettings],
+        settings_cls: type[BaseSettings],
         init_settings: PydanticBaseSettingsSource,
         env_settings: PydanticBaseSettingsSource,
         dotenv_settings: PydanticBaseSettingsSource,
@@ -85,6 +77,5 @@ class Settings(BaseSettings):
             dotenv_settings,
             YamlConfigSettingsSource(settings_cls),
         )
-
 
 settings = Settings()
