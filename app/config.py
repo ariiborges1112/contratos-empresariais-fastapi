@@ -20,7 +20,7 @@ class StorageSettings(BaseModel):
 
 
 class UploadSettings(BaseModel):
-    max_tamanho_arquivo: int = 10485760  # 10 MB em bytes
+    max_tamanho_arquivo: int = 10485760  
     formatos_permitidos: List[str] = [".pdf", ".docx", ".txt", ".jpg", ".png"]
 
 
