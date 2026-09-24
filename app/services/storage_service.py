@@ -1,7 +1,10 @@
 import json
 import os
+import logging
 from app.config import settings
 from app.models.contrato import ContratoCreate, ContratoArmazenado, ContratoUpdate
+
+logger = logging.getLogger()
 
 CAMINHO_JSON = settings.storage.diretorio_metadata + "/documentos.json"
 
@@ -39,7 +42,7 @@ def salvar_documentos(dados: ContratoCreate, nome_arquivo_original: str, conteud
     else:
         novo_id = max([i.id for i in contratos]) + 1
 
-    
+
 
     return novo_id
 
