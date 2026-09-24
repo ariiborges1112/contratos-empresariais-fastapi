@@ -18,7 +18,7 @@ class StorageSettings(BaseModel):
     diretorio_metadata: str = "./storage/metadata"
 
 class UploadSettings(BaseModel):
-    max_tamanho_arquivo: int = 10485760  
+    max_tamanho_arquivo: int = 10485760  # 10 MB em bytes
     formatos_permitidos: List[str] = [".pdf", ".docx", ".txt", ".jpg", ".png"]
 
 
