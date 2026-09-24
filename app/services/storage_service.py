@@ -24,7 +24,7 @@ def _ler_catalogo() -> list[ContratoArmazenado]:
             for i in dados_dicionario:
                 objeto_validado = ContratoArmazenado.model_validate(i)
 
-                objeto_validado.situacao = calcular_situacao(objeto_validado.data_termino)
+                objeto_validado.situacao = _calcular_situacao(objeto_validado.data_termino)
 
                 contratos_validados.append(objeto_validado)
 
