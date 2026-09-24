@@ -43,7 +43,7 @@ def salvar_documentos(dados: ContratoCreate, nome_arquivo_original: str, conteud
     else:
         novo_id = max([i.id for i in contratos]) + 1
 
-    nome_base, extensao = os.path.splitext(nome_arquivo_original)
+    _, extensao = os.path.splitext(nome_arquivo_original)
     nome_armazenado = f"{novo_id}_{nome_arquivo_original}"
     caminho_completo = os.path.join(settings.storage.diretorio_documentos, nome_armazenado)
 
@@ -57,21 +57,21 @@ def salvar_documentos(dados: ContratoCreate, nome_arquivo_original: str, conteud
         situacao_calculada = "vencido"
 
     novo_contrato = ContratoArmazenado(
-        id=novo_id,
-        nome_original=nome_arquivo_original,
-        nome_armazenado=nome_armazenado,
-        extensao=extensao,
-        tipo_mime="application/pdf", 
-        tamanho=tamanho_arquivo,
-        situacao=situacao_calculada,
-        data_upload=datetime.now(),
-        sha256="pendente", 
-        descricao=dados.descricao,
-        categoria=dados.categoria,
-        contratante=dados.contratante,
-        contratado=dados.contratado,
-        data_inicio=dados.data_inicio,
-        data_termino=dados.data_termino
+        id = novo_id,
+        nome_original = nome_arquivo_original,
+        nome_armazenado = nome_armazenado,
+        extensao = extensao,
+        tipo_mime = "application/pdf", 
+        tamanho = tamanho_arquivo,
+        situacao = situacao_calculada,
+        data_upload = datetime.now(),
+        sha256 = "pendente", 
+        descricao = dados.descricao,
+        categoria = dados.categoria,
+        contratante = dados.contratante,
+        contratado = dados.contratado,
+        data_inicio = dados.data_inicio,
+        data_termino = dados.data_termino
     )
 
     contratos.append(novo_contrato)
