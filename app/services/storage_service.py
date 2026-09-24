@@ -1,9 +1,9 @@
 import json
 import os
 import logging
-from datetime import datetime
+from datetime import date, timedelta, datetime
 from app.config import settings
-from app.models.contrato import ContratoCreate, ContratoArmazenado, ContratoUpdate
+from app.models.contrato import ContratoCreate, ContratoArmazenado, ContratoUpdate, SituacaoContrato
 
 logger = logging.getLogger()
 
@@ -23,6 +23,9 @@ def _ler_catalogo() -> list[ContratoArmazenado]:
 
             for i in dados_dicionario:
                 objeto_validado = ContratoArmazenado.model_validate(i)
+
+                objeto_validado.situacao = calcular_situacao(objeto_validado.data_termino)
+
                 contratos_validados.append(objeto_validado)
 
             return contratos_validados
@@ -37,6 +40,17 @@ def _salvar_catalogo(documentos: list[ContratoArmazenado]):
 
         json.dump(dados_para_salvar, arquivo, indent=4)
 
+def _calcular_situacao(data_termino: date) -> SituacaoContrato:
+    hoje = date.today()
+    dias_alerta = settings.contrato.dias_alerta_vencimento
+
+    if data_termino < hoje:
+        return SituacaoContrato.VENCIDO
+    elif hoje <= data_termino <= hoje + timedelta(days=dias_alerta):
+        return SituacaoContrato.PRE_VENCIDO
+    else: 
+        return SituacaoContrato.VIGENTE
+    
 #F1
 def salvar_documentos(dados: ContratoCreate, nome_arquivo_original: str, conteudo_arquivo: bytes):
     contratos = _ler_catalogo()
