@@ -1,6 +1,8 @@
 import json
 import os
 import logging
+import mimetypes
+from app.services.hash_service import calcular_hash_bytes
 from datetime import date, timedelta, datetime
 from app.config import settings
 from app.models.contrato import ContratoCreate, ContratoArmazenado, ContratoUpdate, SituacaoContrato
@@ -52,49 +54,54 @@ def _calcular_situacao(data_termino: date) -> SituacaoContrato:
         return SituacaoContrato.VIGENTE
     
 #F1
-def salvar_documentos(dados: ContratoCreate, nome_arquivo_original: str, conteudo_arquivo: bytes):
+def salvar_documentos(dados: ContratoCreate, nome_arquivo_original: str, conteudo_arquivo: bytes) -> ContratoArmazenado:
     contratos = _ler_catalogo()
 
-    if not contratos:
-        novo_id = 1
-    else:
-        novo_id = max([i.id for i in contratos]) + 1
+    
+    novo_id = max([i.id for i in contratos], default=0) + 1
+
+     
+    _, extensao = os.path.splitext(nome_arquivo_original)
+    nome_armazenado = f"{novo_id}_{nome_arquivo_original}"
+
+    
+    os.makedirs(settings.storage.diretorio_documentos, exist_ok=True)
+    caminho_completo = os.path.join(settings.storage.diretorio_documentos, nome_armazenado)
 
     _, extensao = os.path.splitext(nome_arquivo_original)
     nome_armazenado = f"{novo_id}_{nome_arquivo_original}"
     caminho_completo = os.path.join(settings.storage.diretorio_documentos, nome_armazenado)
 
-    with open(caminho_completo, "wb") as arquivo_fisico:
-        arquivo_fisico.write(conteudo_arquivo)
+   
+    sha256_hash = calcular_hash_bytes(conteudo_arquivo)
+    tipo_mime, _ = mimetypes.guess_type(nome_arquivo_original)
+    tipo_mime = tipo_mime or "application/octet-stream"
+    tamanho_arquivo = len(conteudo_arquivo)
 
-    tamanho_arquivo = os.path.getsize(caminho_completo)
+    
+    situacao_calculada = _calcular_situacao(dados.data_termino)
 
-    situacao_calculada = "vigente"
-    if dados.data_termino < datetime.now().date():
-        situacao_calculada = "vencido"
-
+    
     novo_contrato = ContratoArmazenado(
-        id = novo_id,
-        nome_original = nome_arquivo_original,
-        nome_armazenado = nome_armazenado,
-        extensao = extensao,
-        tipo_mime = "application/pdf", 
-        tamanho = tamanho_arquivo,
-        situacao = situacao_calculada,
-        data_upload = datetime.now(),
-        sha256 = "pendente",  #PRECISA INTEGRAR COM 'HASH_SERVICE.py'
-        descricao = dados.descricao,
-        categoria = dados.categoria,
-        contratante = dados.contratante,
-        contratado = dados.contratado,
-        data_inicio = dados.data_inicio,
-        data_termino = dados.data_termino
+        id=novo_id,
+        nome_original=nome_arquivo_original,
+        nome_armazenado=nome_armazenado,
+        extensao=extensao,
+        tipo_mime=tipo_mime,
+        tamanho=tamanho_arquivo,
+        situacao=situacao_calculada,
+        data_upload=datetime.now(),
+        sha256=sha256_hash,
+        **dados.model_dump()  
     )
 
+    
     contratos.append(novo_contrato)
     _salvar_catalogo(contratos)
 
     return novo_contrato
+
+
 
 #F2, F7                
 def listar_documentos(contratante: str | None = None, situacao: str | None = None,
@@ -126,8 +133,22 @@ def buscar_documento_via_id(id: int) -> ContratoArmazenado | None:
     return None
 
 #F4
-def download_documentos():
-    ...
+def download_documentos(id: int) -> tuple[str, str, str] | None:
+    contrato = buscar_documento_via_id(id)
+    if not contrato:
+        return None
+
+    caminho_arquivo = os.path.join(
+        settings.storage.diretorio_documentos,
+        contrato.nome_armazenado
+    )
+
+    if not os.path.exists(caminho_arquivo):
+        return None
+
+
+    return caminho_arquivo, contrato.nome_original, contrato.tipo_mime
+    
 
 #F5
 def atualizar_documento(id: int, dados_atualizados: ContratoUpdate) -> ContratoArmazenado | None:
