@@ -8,7 +8,6 @@ def gerar_relatorio_csv() -> str:
     output = io.StringIO()
     writer = csv.writer(output, delimiter=";", quoting= csv.QUOTE_MINIMAL)
 
-
     writer.writerow([
         "ID", "Nome Original", "Extensão", "Tamanho(bytes)",
         "Categoria", "Contratante", "Contratado", "Data inicio", "Data Término", "Situação",
@@ -29,9 +28,6 @@ def gerar_relatorio_csv() -> str:
             c.situacao,
             c.data_upload.isoformat() if c.data_upload else "",
             c.sha256
-
         ])
 
         return output.getvalue()
-
-    
