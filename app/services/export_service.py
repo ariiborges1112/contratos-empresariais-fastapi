@@ -4,7 +4,7 @@ from app.services.storage_service import _ler_catalogo
 
 #F13
 def gerar_relatorio_csv() -> str:
-    contratos = _ler_catalogo
+    contratos = _ler_catalogo()
 
     output = io.StringIO()
     writer = csv.writer(output, delimiter=";", quoting= csv.QUOTE_MINIMAL)
@@ -31,4 +31,4 @@ def gerar_relatorio_csv() -> str:
             c.sha256
         ])
 
-        return output.getvalue()
+    return output.getvalue()
