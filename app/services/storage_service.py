@@ -49,38 +49,31 @@ def _calcular_situacao(data_termino: date) -> SituacaoContrato:
     if data_termino < hoje:
         return SituacaoContrato.VENCIDO
     elif hoje <= data_termino <= hoje + timedelta(days=dias_alerta):
-        return SituacaoContrato.PRE_VENCIDO
+        return SituacaoContrato.PROXIMO_VENCIMENTO
     else: 
         return SituacaoContrato.VIGENTE
     
 #F1
 def salvar_documentos(dados: ContratoCreate, nome_arquivo_original: str, conteudo_arquivo: bytes) -> ContratoArmazenado:
     contratos = _ler_catalogo()
-
     
     novo_id = max([i.id for i in contratos], default=0) + 1
-
      
     _, extensao = os.path.splitext(nome_arquivo_original)
     nome_armazenado = f"{novo_id}_{nome_arquivo_original}"
 
-    
     os.makedirs(settings.storage.diretorio_documentos, exist_ok=True)
     caminho_completo = os.path.join(settings.storage.diretorio_documentos, nome_armazenado)
 
-    _, extensao = os.path.splitext(nome_arquivo_original)
-    nome_armazenado = f"{novo_id}_{nome_arquivo_original}"
-    caminho_completo = os.path.join(settings.storage.diretorio_documentos, nome_armazenado)
-
+    with open(caminho_completo, "wb") as arquivo_fisico:
+        arquivo_fisico.write(conteudo_arquivo)
    
     sha256_hash = calcular_hash_bytes(conteudo_arquivo)
     tipo_mime, _ = mimetypes.guess_type(nome_arquivo_original)
     tipo_mime = tipo_mime or "application/octet-stream"
     tamanho_arquivo = len(conteudo_arquivo)
 
-    
     situacao_calculada = _calcular_situacao(dados.data_termino)
-
     
     novo_contrato = ContratoArmazenado(
         id=novo_id,
@@ -95,13 +88,10 @@ def salvar_documentos(dados: ContratoCreate, nome_arquivo_original: str, conteud
         **dados.model_dump()  
     )
 
-    
     contratos.append(novo_contrato)
     _salvar_catalogo(contratos)
 
     return novo_contrato
-
-
 
 #F2, F7                
 def listar_documentos(contratante: str | None = None, situacao: str | None = None,
@@ -146,9 +136,7 @@ def download_documentos(id: int) -> tuple[str, str, str] | None:
     if not os.path.exists(caminho_arquivo):
         return None
 
-
-    return caminho_arquivo, contrato.nome_original, contrato.tipo_mime
-    
+    return caminho_arquivo, contrato.nome_original, contrato.tipo_mime    
 
 #F5
 def atualizar_documento(id: int, dados_atualizados: ContratoUpdate) -> ContratoArmazenado | None:
