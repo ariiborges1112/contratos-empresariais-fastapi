@@ -8,6 +8,8 @@ from pydantic_settings import (
     SettingsConfigDict,
 )
 
+#F12 'config.py' + 'config.yaml'
+
 BASE_DIR = Path(__file__).resolve().parent
 YAML_PATH = BASE_DIR.parent / "config.yaml"
 
@@ -20,7 +22,6 @@ class StorageSettings(BaseModel):
 class UploadSettings(BaseModel):
     max_tamanho_arquivo: int = 10485760  # 10 MB em bytes
     formatos_permitidos: list[str] = [".pdf", ".docx", ".txt", ".jpg", ".png"]
-
 
 class HashSettings(BaseModel):
     algoritmo: str = "sha256"

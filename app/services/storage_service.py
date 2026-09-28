@@ -42,6 +42,7 @@ def _salvar_catalogo(documentos: list[ContratoArmazenado]):
 
         json.dump(dados_para_salvar, arquivo, indent=4)
 
+#F16
 def _calcular_situacao(data_termino: date) -> SituacaoContrato:
     hoje = date.today()
     dias_alerta = settings.contrato.dias_alerta_vencimento

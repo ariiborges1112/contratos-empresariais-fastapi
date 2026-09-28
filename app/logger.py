@@ -6,6 +6,7 @@ log_file = settings.logging.arquivo
 
 log_formato = "%(asctime)s %(levelname)s %(message)s"
 
+#F11
 def setup_logger():
     log_caminho = os.path.dirname(log_file)
 

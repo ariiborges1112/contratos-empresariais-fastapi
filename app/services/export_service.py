@@ -2,6 +2,7 @@ import csv
 import io
 from app.services.storage_service import _ler_catalogo
 
+#F13
 def gerar_relatorio_csv() -> str:
     contratos = _ler_catalogo
 
