@@ -21,7 +21,6 @@ def _adicionar_pasta_ao_zip(zip_file, pasta_origem):
     for pasta_atual, subpastas, arquivos in os.walk(pasta_origem):
         for arquivo in arquivos:
             caminho_completo = os.path.join(pasta_atual, arquivo)
-
             caminho_zip = os.path.relpath(caminho_completo, "storage")
 
             zip_file.write(caminho_completo, arcname=caminho_zip)
@@ -41,13 +40,12 @@ def criar_backup() -> str | None:
 
         return nome_backup
     except Exception as e:
-        logger.error(f"BACKUP FALHOU: Erro ao compactar arquivos: {e}")
+        logger.error(f"BACKUP FALHOU: Erro ao compactar arquivos: {e}")  
         return None
 
 #F15
 def listar_backups() -> list[dict]:
     backups = []
-
     arquivos = os.listdir(settings.storage.diretorio_backups)
 
     for arquivo in arquivos:
