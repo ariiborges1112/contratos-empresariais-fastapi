@@ -1,10 +1,13 @@
 import csv 
 import io
-from app.services.storage_service import _ler_catalogo
+import logging
+from app.services.storage_service import listar_documentos
+
+logger = logging.getLogger()
 
 #F13
 def gerar_relatorio_csv() -> str:
-    contratos = _ler_catalogo()
+    contratos = listar_documentos()
 
     output = io.StringIO()
     writer = csv.writer(output, delimiter=";", quoting= csv.QUOTE_MINIMAL)
@@ -30,5 +33,7 @@ def gerar_relatorio_csv() -> str:
             c.data_upload.isoformat() if c.data_upload else "",
             c.sha256
         ])
+
+    logger.info(f"EXPORTACAO BEM SUCEDIDA: Relatorio CSV gerado com {len(contratos)} contratos")
 
     return output.getvalue()
