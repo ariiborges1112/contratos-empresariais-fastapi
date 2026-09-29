@@ -1,5 +1,5 @@
 from enum import Enum
-from pydantic import BaseModel, model_validator
+from pydantic import BaseModel, model_validator, ConfigDict
 from datetime import datetime, date
 
 class SituacaoContrato(str, Enum):
@@ -38,6 +38,7 @@ class ContratoUpdate(ContratoCreate):
         return self
 
 class ContratoArmazenado(ContratoCreate):
+    model_config = ConfigDict(validate_assignment=True)
     id: int
     nome_original: str
     nome_armazenado: str

@@ -61,6 +61,14 @@ def salvar_documentos(dados: ContratoCreate, nome_arquivo_original: str, conteud
     novo_id = max([i.id for i in contratos], default=0) + 1
      
     _, extensao = os.path.splitext(nome_arquivo_original)
+    tamanho_arquivo = len(conteudo_arquivo)
+   
+    if extensao.lower() not in settings.upload.formatos_permitidos:
+        raise ValueError("Extensão proibida")
+
+    if tamanho_arquivo > settings.upload.max_tamanho_arquivo:
+        raise ValueError("Tamanho de arquivo maior que o permitido")
+
     nome_armazenado = f"{novo_id}_{nome_arquivo_original}"
 
     os.makedirs(settings.storage.diretorio_documentos, exist_ok=True)
@@ -72,7 +80,6 @@ def salvar_documentos(dados: ContratoCreate, nome_arquivo_original: str, conteud
     sha256_hash = calcular_hash_bytes(conteudo_arquivo)
     tipo_mime, _ = mimetypes.guess_type(nome_arquivo_original)
     tipo_mime = tipo_mime or "application/octet-stream"
-    tamanho_arquivo = len(conteudo_arquivo)
 
     situacao_calculada = _calcular_situacao(dados.data_termino)
     
@@ -86,13 +93,14 @@ def salvar_documentos(dados: ContratoCreate, nome_arquivo_original: str, conteud
         situacao=situacao_calculada,
         data_upload=datetime.now(),
         sha256=sha256_hash,
-        **dados.model_dump()  
+        **dados.model_dump()
     )
 
     contratos.append(novo_contrato)
     _salvar_catalogo(contratos)
 
     logger.info(f"Documento {novo_id} salvo com sucesso")
+
     return novo_contrato
 
 #F2, F7                
