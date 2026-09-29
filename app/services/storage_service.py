@@ -92,6 +92,7 @@ def salvar_documentos(dados: ContratoCreate, nome_arquivo_original: str, conteud
     contratos.append(novo_contrato)
     _salvar_catalogo(contratos)
 
+    logger.info(f"Documento {novo_id} salvo com sucesso")
     return novo_contrato
 
 #F2, F7                
@@ -111,6 +112,8 @@ def listar_documentos(contratante: str | None = None, situacao: str | None = Non
     if extensao:
         contratos = [i for i in contratos if i.extensao == extensao]
 
+    logger.info("Listagem solicitada")
+
     return contratos
 
 #F3
@@ -120,6 +123,8 @@ def buscar_documento_via_id(id: int) -> ContratoArmazenado | None:
     for i in contratos:
         if i.id == id:
             return i
+
+    logger.warning(f"Documento {id} não encontrado")
 
     return None
 
@@ -152,6 +157,8 @@ def atualizar_documento(id: int, dados_atualizados: ContratoUpdate) -> ContratoA
 
             _salvar_catalogo(contratos)
 
+            logger.info(f"Documento {id} atualizado")
+
             return contrato
 
     return None
@@ -180,5 +187,7 @@ def excluir_documento(id: int):
             os.remove(caminho_arquivo)
     except OSError as e:
         logger.error(f"Não foi possivel remover o arquivo {caminho_arquivo}: {e}")
+
+    logger.info(f"Documento {id} excluído")
 
     return True
