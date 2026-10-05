@@ -1,8 +1,6 @@
 import logging
 from datetime import datetime
-
 from fastapi import APIRouter, HTTPException, Response, status
-
 from app.services.export_service import gerar_relatorio_csv
 
 logger = logging.getLogger(__name__)
@@ -11,7 +9,6 @@ router = APIRouter(
     prefix="/exportar",
     tags=["Exportação"],
 )
-
 
 @router.get("/csv")
 def exportar_csv():
