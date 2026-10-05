@@ -1,0 +1,1 @@
+from app.services.storage_service import obter_caminho_fisico

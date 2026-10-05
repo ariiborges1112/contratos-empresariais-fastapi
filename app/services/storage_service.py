@@ -53,6 +53,12 @@ def _calcular_situacao(data_termino: date) -> SituacaoContrato:
         return SituacaoContrato.PROXIMO_VENCIMENTO
     else: 
         return SituacaoContrato.VIGENTE
+
+def obter_caminho_fisico(contrato: ContratoArmazenado) -> str:
+    os.path.join(
+        settings.storage.diretorio_documentos,
+        contrato.nome_armazenado
+        )
     
 #F1
 def salvar_documentos(dados: ContratoCreate, nome_arquivo_original: str, conteudo_arquivo: bytes) -> ContratoArmazenado:
@@ -142,10 +148,7 @@ def download_documentos(id: int) -> tuple[str, str, str] | None:
     if not contrato:
         return None
 
-    caminho_arquivo = os.path.join(
-        settings.storage.diretorio_documentos,
-        contrato.nome_armazenado
-    )
+    caminho_arquivo = obter_caminho_fisico()
 
     if not os.path.exists(caminho_arquivo):
         return None
