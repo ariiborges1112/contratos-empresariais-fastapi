@@ -2,7 +2,6 @@ import hashlib
 import os 
 from app.config import settings
 
-
 def calcular_hash_bytes(conteudo: bytes) -> str:
     algoritmo = getattr(settings.hash, "algoritmo", "sha-256")
 
@@ -10,7 +9,6 @@ def calcular_hash_bytes(conteudo: bytes) -> str:
     hasher.update(conteudo)
 
     return hasher.hexdigest()
-
 
 def calcular_hash_arquivo(caminho_arquivo: str) -> str | None:
     if not os.path.exists(caminho_arquivo):
