@@ -9,11 +9,11 @@ logger = logging.getLogger()
 
 app = FastAPI(title="Cofre Digital de Contratos Empresariais")
 
-#F11
-logger.info("INICIALIZACAO_SISTEMA: Cofre Digital iniciado com sucesso")
-
 app.include_router(backup.router)
 app.include_router(estatisticas.router)
 app.include_router(exportar.router)
 
 # TODO: Pessoa 2 - registrar routers de documentos.py e integridade.py
+
+#F11
+logger.info("INICIALIZACAO_SISTEMA: Cofre Digital iniciado com sucesso")
