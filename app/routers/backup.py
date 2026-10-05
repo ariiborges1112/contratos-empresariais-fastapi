@@ -1,8 +1,6 @@
 import logging
 import os
-
 from fastapi import APIRouter, HTTPException, status
-
 from app.config import settings
 from app.services.backup_service import criar_backup, listar_backups
 
@@ -12,11 +10,7 @@ router = APIRouter(
     tags=["Backup"],
 )
 
-
-@router.post(
-    "/backup",
-    status_code=status.HTTP_201_CREATED,
-)
+@router.post("/backup", status_code=status.HTTP_201_CREATED,)
 def gerar_backup():
     nome_backup = criar_backup()
 
@@ -42,7 +36,6 @@ def gerar_backup():
         "arquivo": nome_backup,
         "tamanho": tamanho,
     }
-
 
 @router.get("/backups")
 def listar_backups_disponiveis():
