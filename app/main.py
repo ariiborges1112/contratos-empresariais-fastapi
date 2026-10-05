@@ -5,6 +5,8 @@ from app.routers import backup, estatisticas, exportar
     
 setup_logger()
 
+logger = logging.getLogger()
+
 app = FastAPI(title="Cofre Digital de Contratos Empresariais")
 
 app.include_router(backup.router)
