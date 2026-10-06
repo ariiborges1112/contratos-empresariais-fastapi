@@ -1,32 +1,31 @@
 from fastapi import APIRouter, HTTPException, status
 from app.services import storage_service, hash_service
 from app.config import settings
+from app.services.storage_service import obter_caminho_fisico
 import os
 
-router = APIRouter(prefix="/intgridade", tags=["Integridade"])
+router = APIRouter(tags=["Integridade"])
 
 
 #F9
-@router.get("/{id}/verificar")
+@router.get("/documentos/{id}/integridade")
 def verificar_integridade_documento(id: int):
     contrato = storage_service.buscar_documento_via_id(id)
+
     if not contrato:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Documento com id {id} não encontrado."
+            detail=f"Documento com ID {id} não encontrado"
         )
 
-    caminho_arquivo = os.path.join(
-        settings.storage.diretorio_documentos, 
-        contrato.nome_armazenado
-    )
+    caminho_arquivo = obter_caminho_fisico()
 
     hash_atual = hash_service.calcular_hash_arquivo(caminho_arquivo)
 
     if not hash_atual:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Arquivo fisico do documento '{contrato.nome_original}' não foi encontrado no servidor."
+            detail=f"Arquivo fisico do documento '{contrato.nome_original}' não foi encontrado no servidor"
         )
 
     integro = hash_atual.lower() == contrato.sha256.lower()
@@ -39,10 +38,8 @@ def verificar_integridade_documento(id: int):
         "hash_atual": hash_atual
     }
 
-
-
-# Requisito F10
-@router.get("/verificar-todos")
+#F10
+@router.get("/integridade")
 def verificar_integridade_global():
     contratos = storage_service.listar_documentos()
 
@@ -52,13 +49,9 @@ def verificar_integridade_global():
     total_ausentes = 0
 
     for contrato in contratos:
-        caminho_arquivo = os.path.join(
-            settings.storage.diretorio_documentos,
-            contrato.nome_armazenado
-        )
+        caminho_arquivo = obter_caminho_fisico()
 
         hash_atual = hash_service.calcular_hash_arquivo(caminho_arquivo)
-
 
         if not hash_atual:
             integro = False
@@ -66,6 +59,7 @@ def verificar_integridade_global():
             total_ausentes += 1
         else:
             integro = hash_atual.lower() == contrato.sha256.lower()
+            
             if integro:
                 status_arquivo = "integro"
                 total_integros += 1
