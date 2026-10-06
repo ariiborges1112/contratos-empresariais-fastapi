@@ -1,6 +1,5 @@
 from fastapi import APIRouter,File, HTTPException, status, UploadFile, Form
 from datetime import date
-from typing import List, Optional
 from fastapi.responses import FileResponse
 import logging
 from app.models.contrato import ContratoArmazenado, ContratoUpdate, ContratoCreate, SituacaoContrato
@@ -18,7 +17,7 @@ async def criar_documento(
     contratado: str = Form(...),
     data_inicio: date = Form(...),
     data_termino: date = Form(...),
-    descricao: Optional[str] = Form(None),
+    descricao: str | None = Form(None),
     arquivo: UploadFile = File(...)
 ):
     conteudo = await arquivo.read()
@@ -50,12 +49,12 @@ async def criar_documento(
 
 
 #F2, F7
-@router.get("", response_model=List[ContratoArmazenado])
+@router.get("", response_model=list[ContratoArmazenado])
 def listar_documentos(
-    contratante: Optional[str] = None,
-    situacao: Optional[SituacaoContrato] = None,
-    categoria: Optional[str] = None,
-    extensao: Optional[str] = None,
+    contratante: str | None = None,
+    situacao: SituacaoContrato | None = None,
+    categoria: str | None = None,
+    extensao: str | None = None
 ):
     resultado = storage_service.listar_documentos(
         contratante=contratante,
