@@ -3,7 +3,7 @@ from datetime import date
 from typing import List, Optional
 from fastapi.responses import FileResponse
 import logging
-from app.models.contrato import ContratoArmazenado, ContratoUpdate, ContratoCreate
+from app.models.contrato import ContratoArmazenado, ContratoUpdate, ContratoCreate, SituacaoContrato
 from app.services import storage_service
 
 logger = logging.getLogger()
@@ -53,7 +53,7 @@ async def criar_documento(
 @router.get("", response_model=List[ContratoArmazenado])
 def listar_documentos(
     contratante: Optional[str] = None,
-    situacao: Optional[str] = None,
+    situacao: Optional[SituacaoContrato] = None,
     categoria: Optional[str] = None,
     extensao: Optional[str] = None,
 ):
