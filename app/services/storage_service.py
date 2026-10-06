@@ -55,7 +55,7 @@ def _calcular_situacao(data_termino: date) -> SituacaoContrato:
         return SituacaoContrato.VIGENTE
 
 def obter_caminho_fisico(contrato: ContratoArmazenado) -> str:
-    os.path.join(
+    return os.path.join(
         settings.storage.diretorio_documentos,
         contrato.nome_armazenado
         )
@@ -145,10 +145,11 @@ def buscar_documento_via_id(id: int) -> ContratoArmazenado | None:
 #F4
 def download_documentos(id: int) -> tuple[str, str, str] | None:
     contrato = buscar_documento_via_id(id)
+    
     if not contrato:
         return None
 
-    caminho_arquivo = obter_caminho_fisico()
+    caminho_arquivo = obter_caminho_fisico(contrato)
 
     if not os.path.exists(caminho_arquivo):
         return None
@@ -159,18 +160,22 @@ def download_documentos(id: int) -> tuple[str, str, str] | None:
 def atualizar_documento(id: int, dados_atualizados: ContratoUpdate) -> ContratoArmazenado | None:
     contratos = _ler_catalogo()
 
-    for contrato in contratos:
+    for i,contrato in enumerate(contratos):
         if contrato.id == id:
             novos_dados = dados_atualizados.model_dump(exclude_unset=True)
 
-            for chave, valor in novos_dados.items():
-                setattr(contrato, chave, valor)
+            dados_completos = contrato.model_dump()
+            dados_completos.update(novos_dados)
+
+            contrato_atualizado = ContratoArmazenado.model_validate(dados_completos)
+
+            contratos[i] = contrato_atualizado
 
             _salvar_catalogo(contratos)
 
             logger.info(f"Documento {id} atualizado")
 
-            return contrato
+            return contrato_atualizado
 
     return None
 

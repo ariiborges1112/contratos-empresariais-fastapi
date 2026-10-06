@@ -29,7 +29,7 @@ def gerar_relatorio_csv() -> str:
             c.contratado,
             c.data_inicio.isoformat() if c.data_inicio else "",
             c.data_termino.isoformat() if c.data_termino else "",
-            c.situacao,
+            c.situacao.value,
             c.data_upload.isoformat() if c.data_upload else "",
             c.sha256
         ])
