@@ -1,6 +1,7 @@
 from fastapi import APIRouter,File, HTTPException, status, UploadFile, Form
 from datetime import date
 from fastapi.responses import FileResponse
+from pydantic import ValidationError
 import logging
 from app.models.contrato import ContratoArmazenado, ContratoUpdate, ContratoCreate, SituacaoContrato
 from app.services import storage_service
@@ -9,7 +10,7 @@ logger = logging.getLogger()
 
 router = APIRouter(prefix="/documentos", tags=["Documentos"])
 
-#requisito F1
+#F1
 @router.post("", response_model=ContratoArmazenado, status_code=status.HTTP_201_CREATED)
 async def criar_documento(
     categoria: str = Form(...),
@@ -20,29 +21,49 @@ async def criar_documento(
     descricao: str | None = Form(None),
     arquivo: UploadFile = File(...)
 ):
-    conteudo = await arquivo.read()
-
-    dados_contrato = ContratoCreate(
-        descricao=descricao,
-        categoria=categoria,
-        contratante=contratante,
-        contratado=contratado,
-        data_inicio=data_inicio,
-        data_termino=data_termino
-    )
-
     try:
+        conteudo = await arquivo.read()
+
+        dados_contrato = ContratoCreate(
+            descricao=descricao,
+            categoria=categoria,
+            contratante=contratante,
+            contratado=contratado,
+            data_inicio=data_inicio,
+            data_termino=data_termino
+        )
+
+    
         novo_contrato = storage_service.salvar_documentos(
             dados=dados_contrato,
             nome_arquivo_original=arquivo.filename,
             conteudo_arquivo=conteudo
         )
+
+    except ValidationError as erro:
+        logger.warning(f"UPLOAD_REJEITADO arquivo={arquivo.filename}")
+
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=str(erro)
+        )
+    
     except ValueError as erro:
+        logger.warning(f"UPLOAD_REJEITADO arquivo={arquivo.filename} motivo={erro}")
+
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=str(erro)
         )
 
+    except OSError as erro:
+        logger.error(f"UPLOAD_FALHOU arquivo={arquivo.filename} erro={erro}")
+
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Não foi possível gravar o arquivo no servidor."
+        )
+    
     logger.info(f"UPLOAD id={novo_contrato.id} arquivo={arquivo.filename}")
 
     return novo_contrato
