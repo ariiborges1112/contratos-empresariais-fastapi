@@ -58,3 +58,11 @@
 2026-10-08 15:26:12 INFO UPLOAD id=11 arquivo=JPG-persistencia_003.JPG
 2026-10-08 15:27:23 INFO Documento 12 salvo com sucesso
 2026-10-08 15:27:23 INFO UPLOAD id=12 arquivo=anexo_corinthians_001.pdf
+2026-10-08 16:07:40 INFO INICIALIZACAO_SISTEMA: Cofre Digital iniciado com sucesso
+2026-10-08 16:08:40 WARNING Documento 2 não encontrado
+2026-10-08 16:08:40 WARNING DOCUMENTO_NAO_ENCONTRADO id=2
+2026-10-08 16:09:05 INFO Listagem solicitada
+2026-10-08 16:09:05 INFO VERIFICACAO_GLOBAL total=10 integros=10 corrompidos=0 ausentes=0
+2026-10-08 16:09:08 INFO Listagem solicitada
+2026-10-08 16:09:08 INFO VERIFICACAO_GLOBAL total=10 integros=10 corrompidos=0 ausentes=0
+2026-10-08 16:13:21 INFO Listagem de backups: 2 arquivo(s).
