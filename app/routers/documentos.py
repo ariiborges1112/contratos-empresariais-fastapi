@@ -41,11 +41,20 @@ async def criar_documento(
         )
 
     except ValidationError as erro:
+        mensagens = []
+
+        for problema in erro.errors():
+            texto = problema["msg"]
+            texto = texto.replace("Value error, ", "")
+            mensagens.append(texto)
+
+            mensagem = "; ".join(mensagens)
+        
         logger.warning(f"UPLOAD_REJEITADO arquivo={arquivo.filename}")
 
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-            detail=str(erro)
+            detail=mensagem
         )
     
     except ValueError as erro:
