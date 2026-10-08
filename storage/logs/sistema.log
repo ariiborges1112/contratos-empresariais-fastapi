@@ -8,3 +8,23 @@
 2026-10-05 18:17:37 INFO 1 change detected
 2026-10-05 18:17:38 INFO 1 change detected
 2026-10-05 18:17:38 INFO 5 changes detected
+2026-10-07 09:04:14 INFO INICIALIZACAO_SISTEMA: Cofre Digital iniciado com sucesso
+2026-10-07 09:05:03 INFO INICIALIZACAO_SISTEMA: Cofre Digital iniciado com sucesso
+2026-10-07 19:49:34 INFO INICIALIZACAO_SISTEMA: Cofre Digital iniciado com sucesso
+2026-10-07 20:21:04 INFO Documento 1 salvo com sucesso
+2026-10-07 20:21:04 INFO UPLOAD id=1 arquivo=SLIDE 02 -  PRINCÍPIOS FUNDAMENTAIS DO DIREITO.pdf
+2026-10-07 20:29:36 INFO Listagem solicitada
+2026-10-07 20:29:36 INFO CONSULTA_LISTAGEM total=0
+2026-10-07 20:30:24 INFO CONSULTA id=1
+2026-10-07 20:31:14 INFO Listagem solicitada
+2026-10-07 20:31:14 INFO EXPORTACAO BEM SUCEDIDA: Relatorio CSV gerado com 1 contratos
+2026-10-07 20:31:14 INFO Download do CSV solicitado: catalogo_contratos_2026-10-07_2031.csv
+2026-10-07 20:31:16 INFO Listagem solicitada
+2026-10-07 20:31:16 INFO EXPORTACAO BEM SUCEDIDA: Relatorio CSV gerado com 1 contratos
+2026-10-07 20:31:16 INFO Download do CSV solicitado: catalogo_contratos_2026-10-07_2031.csv
+2026-10-08 07:20:03 INFO Documento 2 salvo com sucesso
+2026-10-08 07:20:03 INFO UPLOAD id=2 arquivo=SLIDE 05 - Propriedade Intelectual e plágio.pdf
+2026-10-08 07:23:35 INFO Listagem solicitada
+2026-10-08 07:23:35 INFO EXPORTACAO BEM SUCEDIDA: Relatorio CSV gerado com 2 contratos
+2026-10-08 07:23:35 INFO Download do CSV solicitado: catalogo_contratos_2026-10-08_0723.csv
+2026-10-08 07:23:59 INFO CONSULTA id=1
