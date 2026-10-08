@@ -22,6 +22,7 @@ def setup_logger():
     logger = logging.getLogger()
 
     logger.setLevel(settings.logging.nivel)
+    logging.getLogger("watchfiles").setLevel(logging.WARNING)
 
     if not logger.handlers:
         manipulador_arquivo.setFormatter(formatador)
