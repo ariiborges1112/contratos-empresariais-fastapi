@@ -33,3 +33,28 @@
 2026-10-08 10:33:02 INFO INICIALIZACAO_SISTEMA: Cofre Digital iniciado com sucesso
 2026-10-08 10:33:45 INFO INICIALIZACAO_SISTEMA: Cofre Digital iniciado com sucesso
 2026-10-08 10:33:47 INFO INICIALIZACAO_SISTEMA: Cofre Digital iniciado com sucesso
+2026-10-08 14:49:11 INFO INICIALIZACAO_SISTEMA: Cofre Digital iniciado com sucesso
+2026-10-08 14:49:12 INFO INICIALIZACAO_SISTEMA: Cofre Digital iniciado com sucesso
+2026-10-08 15:16:06 INFO Documento 2 excluído
+2026-10-08 15:16:06 INFO EXCLUSAO id=2
+2026-10-08 15:16:07 WARNING EXCLUSAO_FALHOU id=2 motivo=nao_encontrado
+2026-10-08 15:16:17 INFO Documento 4 excluído
+2026-10-08 15:16:17 INFO EXCLUSAO id=4
+2026-10-08 15:17:55 INFO Documento 4 salvo com sucesso
+2026-10-08 15:17:55 INFO UPLOAD id=4 arquivo=aditivo_palmeiras_001.docx
+2026-10-08 15:19:24 INFO Documento 5 salvo com sucesso
+2026-10-08 15:19:24 INFO UPLOAD id=5 arquivo=contrato_nike_004.docx
+2026-10-08 15:20:25 INFO Documento 6 salvo com sucesso
+2026-10-08 15:20:25 INFO UPLOAD id=6 arquivo=contrato_samsung_005.docx
+2026-10-08 15:23:34 INFO Documento 7 salvo com sucesso
+2026-10-08 15:23:34 INFO UPLOAD id=7 arquivo=distrato_professor_002.txt
+2026-10-08 15:24:09 INFO Documento 8 salvo com sucesso
+2026-10-08 15:24:09 INFO UPLOAD id=8 arquivo=distrato_flamengo_001.txt
+2026-10-08 15:25:25 INFO Documento 9 salvo com sucesso
+2026-10-08 15:25:25 INFO UPLOAD id=9 arquivo=JPG-persistencia_001.jpg
+2026-10-08 15:26:04 INFO Documento 10 salvo com sucesso
+2026-10-08 15:26:04 INFO UPLOAD id=10 arquivo=JPG-persistencia_002.jpg
+2026-10-08 15:26:12 INFO Documento 11 salvo com sucesso
+2026-10-08 15:26:12 INFO UPLOAD id=11 arquivo=JPG-persistencia_003.JPG
+2026-10-08 15:27:23 INFO Documento 12 salvo com sucesso
+2026-10-08 15:27:23 INFO UPLOAD id=12 arquivo=anexo_corinthians_001.pdf
