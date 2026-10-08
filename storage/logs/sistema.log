@@ -66,3 +66,18 @@
 2026-10-08 16:09:08 INFO Listagem solicitada
 2026-10-08 16:09:08 INFO VERIFICACAO_GLOBAL total=10 integros=10 corrompidos=0 ausentes=0
 2026-10-08 16:13:21 INFO Listagem de backups: 2 arquivo(s).
+2026-10-08 19:38:45 INFO INICIALIZACAO_SISTEMA: Cofre Digital iniciado com sucesso
+2026-10-08 19:38:48 INFO INICIALIZACAO_SISTEMA: Cofre Digital iniciado com sucesso
+2026-10-08 19:39:35 WARNING UPLOAD_REJEITADO arquivo=contrato_nubank_002.pdf
+2026-10-08 19:39:37 WARNING UPLOAD_REJEITADO arquivo=contrato_nubank_002.pdf
+2026-10-08 19:39:56 INFO Documento 13 salvo com sucesso
+2026-10-08 19:39:56 INFO UPLOAD id=13 arquivo=contrato_nubank_002.pdf
+2026-10-08 20:08:38 INFO Documento 14 salvo com sucesso
+2026-10-08 20:08:38 INFO UPLOAD id=14 arquivo=contrato_meta_003.pdf
+2026-10-08 20:10:57 INFO Documento 15 salvo com sucesso
+2026-10-08 20:10:57 INFO UPLOAD id=15 arquivo=contrato_palmeiras_008.pdf
+2026-10-08 20:11:40 WARNING UPLOAD_REJEITADO arquivo=contrato_corinthians_009.pdf
+2026-10-08 20:11:56 INFO Documento 16 salvo com sucesso
+2026-10-08 20:11:56 INFO UPLOAD id=16 arquivo=contrato_corinthians_009.pdf
+2026-10-08 20:13:30 INFO Documento 17 salvo com sucesso
+2026-10-08 20:13:30 INFO UPLOAD id=17 arquivo=contrato_locacao_010.txt
