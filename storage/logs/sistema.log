@@ -100,3 +100,8 @@
 2026-10-08 21:19:31 INFO UPLOAD id=20 arquivo=contrato_nexatech.pdf
 2026-10-08 21:19:43 INFO Documento 20 excluído
 2026-10-08 21:19:43 INFO EXCLUSAO id=20
+2026-10-08 21:25:19 INFO INICIALIZACAO_SISTEMA: Cofre Digital iniciado com sucesso
+2026-10-08 21:25:20 INFO INICIALIZACAO_SISTEMA: Cofre Digital iniciado com sucesso
+2026-10-08 21:25:25 INFO Listagem de backups: 2 arquivo(s).
+2026-10-08 21:25:32 INFO BACKUP SUCESSO arquivo=backup_2026-10-08_212532.zip
+2026-10-08 21:25:32 INFO Backup solicitado via API: backup_2026-10-08_212532.zip
