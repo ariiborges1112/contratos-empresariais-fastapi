@@ -76,8 +76,9 @@ Desenvolver uma aplicação de **Cofre Digital de Contratos**, aplicando de form
 | [Uvicorn](https://www.uvicorn.org/) | Servidor ASGI |
 | [Pydantic](https://docs.pydantic.dev/) | Validação e serialização dos metadados dos contratos |
 | [PyYAML](https://pyyaml.org/) | Leitura do arquivo de configuração externo |
+| [pydantic-settings](https://pypi.org/project/pydantic-settings/) | Gerenciar as configurações e variáveis de ambiente |
 | `hashlib` (nativo) | Cálculo de hash SHA-256 para verificação de integridade |
-| `zipfile` / `shutil` (nativo) | Compactação e gestão dos backups |
+| `zipfile` / `mimetypes` (nativo) | Compactação e gestão dos backups |
 | `logging` (nativo) | Registro estruturado de eventos do sistema |
 | `csv` (nativo) | Geração do relatório exportável do catálogo |
 | `python-multipart` | Suporte a upload de arquivos (`UploadFile`) no FastAPI |
