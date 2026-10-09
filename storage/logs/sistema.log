@@ -81,3 +81,22 @@
 2026-10-08 20:11:56 INFO UPLOAD id=16 arquivo=contrato_corinthians_009.pdf
 2026-10-08 20:13:30 INFO Documento 17 salvo com sucesso
 2026-10-08 20:13:30 INFO UPLOAD id=17 arquivo=contrato_locacao_010.txt
+2026-10-08 21:01:16 INFO INICIALIZACAO_SISTEMA: Cofre Digital iniciado com sucesso
+2026-10-08 21:01:18 INFO INICIALIZACAO_SISTEMA: Cofre Digital iniciado com sucesso
+2026-10-08 21:02:28 INFO Documento 17 excluído
+2026-10-08 21:02:28 INFO EXCLUSAO id=17
+2026-10-08 21:02:37 WARNING EXCLUSAO_FALHOU id=1 motivo=nao_encontrado
+2026-10-08 21:02:47 WARNING EXCLUSAO_FALHOU id=1 motivo=nao_encontrado
+2026-10-08 21:02:47 WARNING EXCLUSAO_FALHOU id=1 motivo=nao_encontrado
+2026-10-08 21:02:48 WARNING EXCLUSAO_FALHOU id=1 motivo=nao_encontrado
+2026-10-08 21:02:48 WARNING EXCLUSAO_FALHOU id=1 motivo=nao_encontrado
+2026-10-08 21:17:57 INFO Documento 17 salvo com sucesso
+2026-10-08 21:17:57 INFO UPLOAD id=17 arquivo=contrato_prismamarketing.pdf
+2026-10-08 21:18:30 INFO Documento 18 salvo com sucesso
+2026-10-08 21:18:30 INFO UPLOAD id=18 arquivo=contrato_tecnosupply.txt
+2026-10-08 21:19:24 INFO Documento 19 salvo com sucesso
+2026-10-08 21:19:24 INFO UPLOAD id=19 arquivo=contrato_nexatech.pdf
+2026-10-08 21:19:31 INFO Documento 20 salvo com sucesso
+2026-10-08 21:19:31 INFO UPLOAD id=20 arquivo=contrato_nexatech.pdf
+2026-10-08 21:19:43 INFO Documento 20 excluído
+2026-10-08 21:19:43 INFO EXCLUSAO id=20
