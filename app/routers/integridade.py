@@ -31,7 +31,7 @@ def verificar_integridade_documento(id: int):
     contrato = storage_service.buscar_documento_via_id(id)
 
     if not contrato:
-        logger.warning(f"DOCUMENTO_NAO_ENCONTRADO id={id}")
+        logger.error(f"DOCUMENTO_NAO_ENCONTRADO id={id}")
 
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,

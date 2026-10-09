@@ -138,7 +138,7 @@ def buscar_documento_via_id(id: int) -> ContratoArmazenado | None:
         if i.id == id:
             return i
 
-    logger.warning(f"Documento {id} não encontrado")
+    logger.error(f"Documento {id} não encontrado")
 
     return None
 
