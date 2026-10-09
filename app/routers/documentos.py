@@ -139,7 +139,21 @@ def baixar_documento(id: int):
 #F5
 @router.put("/{id}", response_model=ContratoArmazenado)
 def atualizar_documento(id: int, dados: ContratoUpdate):
-    contrato_atualizado = storage_service.atualizar_documento(id, dados)
+    try:
+        contrato_atualizado = storage_service.atualizar_documento(id, dados)
+
+    except ValidationError as erro:
+        mensagens = [
+            problema["msg"].replace("Value error, ", "")
+            for problema in erro.errors()
+        ]
+        
+        logger.warning(f"ATUALIZACAO_REJEITADA id={id} motivo={'; '.join(mensagens)}")
+
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail="; ".join(mensagens)
+        )
 
     if not contrato_atualizado:
         logger.warning(f"ATUALIZACAO_FALHOU id={id} motivo=nao_encontrado")

@@ -115,16 +115,18 @@ def listar_documentos(contratante: str | None = None, situacao: str | None = Non
     contratos = _ler_catalogo()
 
     if contratante:
-        contratos = [i for i in contratos if i.contratante == contratante]
+        contratos = [i for i in contratos if i.contratante.lower() == contratante.lower()]
 
     if situacao:
         contratos = [i for i in contratos if i.situacao == situacao]
 
     if categoria:
-        contratos = [i for i in contratos if i.categoria == categoria]
+        contratos = [i for i in contratos if i.categoria.lower() == categoria.lower()]
 
     if extensao:
-        contratos = [i for i in contratos if i.extensao == extensao]
+        ext = extensao.lower().lstrip(".")
+
+        contratos = [i for i in contratos if i.extensao.lower().lstrip(".") == ext]
 
     logger.info("Listagem solicitada")
 
@@ -169,6 +171,8 @@ def atualizar_documento(id: int, dados_atualizados: ContratoUpdate) -> ContratoA
 
             contrato_atualizado = ContratoArmazenado.model_validate(dados_completos)
 
+            contrato_atualizado.situacao = _calcular_situacao(contrato_atualizado.data_termino)
+            
             contratos[i] = contrato_atualizado
 
             _salvar_catalogo(contratos)

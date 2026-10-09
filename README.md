@@ -95,7 +95,7 @@ Desenvolver uma aplicação de **Cofre Digital de Contratos**, aplicando de form
 
 ```bash
 # 1. Clone o repositório
-git clone https://github.com/seu-usuario/cofre-digital-contratos.git
+git clone https://github.com/ariiborges1112/contratos-empresariais-fastapi.git
 cd cofre-digital-contratos
 
 # 2. Crie e ative um ambiente virtual
@@ -200,7 +200,7 @@ O modelo `Contrato` (`app/models/contrato.py`), implementado com Pydantic, cont�
 | `GET` | `/exportar/csv` | Exporta o catálogo completo em CSV | F13 |
 | `POST` | `/backup` | Gera um novo backup compactado (.zip) | F14 |
 | `GET` | `/backups` | Lista os backups disponíveis | F15 |
-| `GET` | `/documentos/situacao?tipo=vencidos\|vigentes\|proximos` | Consulta contratos vencidos, vigentes ou próximos do vencimento | F16 (específico do tema) |
+| `GET` | `/documentos/situacao?tipo=vencidos\|vigentes\|proximos` | Consulta contratos vencidos, vigentes ou próximos_vencimento | F16 (específico do tema) |
 
 ---
 
