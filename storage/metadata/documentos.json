@@ -114,7 +114,7 @@
         "extensao": ".jpg",
         "tipo_mime": "image/jpeg",
         "tamanho": 317365,
-        "situacao": "proximo_vencimento",
+        "situacao": "vencido",
         "data_upload": "2026-10-08T15:25:25.962699",
         "sha256": "61640db9812d53b8da09e61b94ea8e55439fe1b6088c1075f6f9a027ed06311a"
     },
@@ -131,7 +131,7 @@
         "extensao": ".jpg",
         "tipo_mime": "image/jpeg",
         "tamanho": 355421,
-        "situacao": "proximo_vencimento",
+        "situacao": "vencido",
         "data_upload": "2026-10-08T15:26:04.347494",
         "sha256": "66b386ca70951ddcba1ea64baeafa56757294c02cbc74d3c018d98860fe6a130"
     },
@@ -148,7 +148,7 @@
         "extensao": ".JPG",
         "tipo_mime": "image/jpeg",
         "tamanho": 1969964,
-        "situacao": "proximo_vencimento",
+        "situacao": "vencido",
         "data_upload": "2026-10-08T15:26:12.490012",
         "sha256": "eee655cce35c0635cb85c47c3f97d8060746a968ad6c88ffe234e0179166a2b4"
     },
@@ -233,7 +233,7 @@
         "extensao": ".pdf",
         "tipo_mime": "application/pdf",
         "tamanho": 42679,
-        "situacao": "proximo_vencimento",
+        "situacao": "vencido",
         "data_upload": "2026-10-08T20:11:56.116962",
         "sha256": "49a89b91e80f374101fce7bc2e314f78ab9e3c853debfb82c43da7315e8fdc86"
     },
@@ -287,5 +287,22 @@
         "situacao": "proximo_vencimento",
         "data_upload": "2026-10-08T21:19:24.221966",
         "sha256": "de0b004ed349522402985ab718ffdaa481b919d4f80268d8a8e058a30f0f61f6"
+    },
+    {
+        "descricao": null,
+        "categoria": "contrato",
+        "contratante": "Izabel",
+        "contratado": "Amazon",
+        "data_inicio": "2026-10-09",
+        "data_termino": "2027-10-09",
+        "id": 20,
+        "nome_original": "Documento sem t\u00edtulo (7).pdf",
+        "nome_armazenado": "20_Documento sem t\u00edtulo (7).pdf",
+        "extensao": ".pdf",
+        "tipo_mime": "application/pdf",
+        "tamanho": 70066,
+        "situacao": "vigente",
+        "data_upload": "2026-10-09T09:24:29.589912",
+        "sha256": "7a6109b54da87b7d72a5d3a4bcaceb5ab18bc4f9c48be11e2aa35db7e1d3e995"
     }
 ]
